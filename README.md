@@ -36,6 +36,45 @@ Oracle Autonomous Database (ADB).
 2. Copy `dags/bedtime_story_pipeline.py` into your Airflow `dags`
    directory (or mount this repo there).
 
+## Local development quickstart (visualize the DAG)
+These steps bring up an Airflow UI locally so you can see the DAG
+graph without deploying to a remote environment. The commands use a
+throwaway `AIRFLOW_HOME` inside the repo root to keep local state
+isolated.
+
+1. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+2. Initialize Airflow metadata DB and create an admin user (accepting
+   prompts with defaults is fine):
+   ```bash
+   export AIRFLOW_HOME="$(pwd)/.airflow"
+   airflow db init
+   airflow users create \
+     --username admin \
+     --password admin \
+     --firstname Airflow \
+     --lastname Admin \
+     --role Admin \
+     --email admin@example.com
+   ```
+3. Point Airflow at this repo's DAGs directory and start a local
+   webserver plus scheduler in two shells:
+   ```bash
+   export AIRFLOW_HOME="$(pwd)/.airflow"
+   export AIRFLOW__CORE__DAGS_FOLDER="$(pwd)/dags"
+
+   # Shell 1
+   airflow webserver -p 8080
+
+   # Shell 2
+   airflow scheduler
+   ```
+4. Open http://localhost:8080 in your browser, log in with the admin
+   credentials, and view the `bedtime_story_pipeline` DAG to inspect
+   its graph and tasks.
+
 ## Configuration
 Provide the following environment variables to your Airflow workers:
 
