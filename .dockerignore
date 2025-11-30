@@ -1,0 +1,29 @@
+# Git
+.git
+.gitignore
+
+# Airflow local files
+.airflow
+logs
+plugins
+__pycache__
+
+# Documentation
+*.md
+README.md
+
+# Docker
+docker-compose.yml
+Dockerfile
+.dockerignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
