@@ -37,8 +37,40 @@ Oracle Autonomous Database (ADB).
    directory (or mount this repo there).
 
 ## Local development quickstart (visualize the DAG)
-These steps bring up an Airflow UI locally so you can see the DAG
-graph without deploying to a remote environment. The commands use a
+
+### Quick Start with Docker Compose (Recommended)
+
+The easiest way to visualize the DAG is using Docker Compose:
+
+1. **Run the quickdevstart script:**
+   ```bash
+   ./quickdevstart.sh
+   ```
+   
+   Or manually with docker-compose:
+   ```bash
+   docker-compose up
+   ```
+
+2. **Access the Airflow UI:**
+   - Open http://localhost:8080 in your browser
+   - Username: `admin`
+   - Password: `admin`
+
+3. **View the DAG:**
+   - Navigate to the DAGs page
+   - Find and click on `bedtime_story_pipeline` to see the DAG graph
+
+To stop the services, press `Ctrl+C` in the terminal where docker-compose is running, or run:
+```bash
+docker-compose down
+```
+
+**Note:** For DAG visualization, the base Airflow image is sufficient. If you want to actually execute the DAG tasks (which require OpenAI, OCI, and Oracle DB connections), you'll need to build a custom image with dependencies using the provided `Dockerfile`.
+
+### Alternative: Manual Setup (Without Docker)
+
+These steps bring up an Airflow UI locally without Docker. The commands use a
 throwaway `AIRFLOW_HOME` inside the repo root to keep local state
 isolated.
 
